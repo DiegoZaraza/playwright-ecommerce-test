@@ -1,0 +1,6 @@
+{
+  "test:chrome": "npx playwright test --project=desktop-chromium",
+  "test:debug": "npx playwright test --project=desktop-chromium --headed --debug",
+  "test:ui": "npx playwright test --ui",
+  "test:single": "npx playwright test --project=desktop-chromium --workers=1"
+}

@@ -1,0 +1,42 @@
+{
+  "name": "playwright-ecommerce-automation",
+  "version": "1.0.0",
+  "description": "E-commerce automation test suite using Playwright and TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:desktop": "playwright test --project=desktop-chromium",
+    "test:mobile": "playwright test --project=mobile-chrome",
+    "test:chrome": "playwright test --project=desktop-chromium",
+    "test:chrome-only": "playwright test --project=desktop-chromium --workers=1",
+    "test:all": "playwright test --project=desktop-chromium --project=desktop-firefox --project=mobile-chrome",
+    "report": "playwright show-report",
+    "report:open": "playwright show-report --host 0.0.0.0 --port 9323",
+    "clean": "rm -rf test-results playwright-report screenshots",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"**/*.{ts,json,md}\""
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "e2e",
+    "typescript",
+    "page-object-model"
+  ],
+  "author": "QA Engineer",
+  "license": "MIT",
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "@playwright/test": "^1.40.1",
+    "@types/node": "^20.10.5",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
