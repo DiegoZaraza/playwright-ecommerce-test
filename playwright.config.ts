@@ -66,5 +66,20 @@ export default defineConfig({
         ...devices["Pixel 5"],
       },
     },
+
+    {
+      name: "mobile-safari",
+      use: {
+        ...devices["iPhone 13 Pro"],
+      },
+    },
+
+    {
+      name: "mobile-android",
+      use: {
+        ...devices["Pixel 5"],
+        viewport: { width: 393, height: 851 },
+      },
+    },
   ],
 });
