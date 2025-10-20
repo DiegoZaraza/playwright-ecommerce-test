@@ -46,21 +46,19 @@ test.describe("E-commerce Purchase Flow", () => {
   test("Complete purchase flow - Add product to cart and proceed to checkout", async ({
     page,
   }) => {
-    console.log('🚀 Starting complete purchase flow test...');
+    console.log('Starting complete purchase flow test...');
     
     // Initialize page object for homepage interactions
     const homePage = new HomePage(page);
     
-    // STEP 1: Navigate to homepage and verify it loads correctly
-    console.log('📍 Step 1: Navigating to homepage...');
+    console.log('Step 1: Navigating to homepage...');
     await homePage.navigate();
 
     const isHomePageLoaded = await homePage.isLoaded();
     expect(isHomePageLoaded, "Home page should load successfully").toBeTruthy();
-    console.log('Step 1: Homepage loaded successfully');
+    console.log('Step 2: Homepage loaded successfully');
 
-    // STEP 2: Navigate to products page and verify product catalog
-    console.log('Step 2: Navigating to products page...');
+    console.log('Step 3: Navigating to products page...');
     await homePage.navigateToProducts();
 
     // Initialize page object for products page interactions
@@ -78,10 +76,9 @@ test.describe("E-commerce Purchase Flow", () => {
     // Get the name of the third product (index 2) for selection
     const thirdProductName = await productsPage.getProductName(2);
     expect(thirdProductName, "Third product name should be defined").toBeTruthy();
-    console.log(`Step 2: Products page loaded with ${productCount} products. Selected: ${thirdProductName}`);
+    console.log(`Step 4: Products page loaded with ${productCount} products. Selected: ${thirdProductName}`);
 
-    // STEP 3: View detailed information for the selected product
-    console.log('Step 3: Viewing product details...');
+    console.log('Step 5: Viewing product details...');
     await productsPage.viewThirdProduct();
 
     // Initialize page object for product detail page interactions
@@ -91,10 +88,9 @@ test.describe("E-commerce Purchase Flow", () => {
     // Verify product details are displayed correctly
     const detailProductName = await productDetailPage.getProductName();
     expect(detailProductName, "Product detail page should display").toBeTruthy();
-    console.log(`Step 3: Product details loaded for: ${detailProductName}`);
+    console.log(`Step 6: Product details loaded for: ${detailProductName}`);
 
-    // STEP 4: Configure product quantity and add to shopping cart
-    console.log('Step 4: Setting quantity and adding to cart...');
+    console.log('Step 7: Setting quantity and adding to cart...');
     
     // Set the desired quantity (using randomly generated value)
     await productDetailPage.setQuantity(randomQuantity);
@@ -109,9 +105,8 @@ test.describe("E-commerce Purchase Flow", () => {
     // Verify success modal appears to confirm product was added
     const isModalVisible = await productDetailPage.isSuccessModalVisible();
     expect(isModalVisible, "Success modal should appear after adding to cart").toBeTruthy();
-    console.log(`Step 4: Product added to cart with quantity: ${randomQuantity}`);
+    console.log(`Step 8: Product added to cart with quantity: ${randomQuantity}`);
 
-    // STEP 5: Navigate to cart and verify items are correct
     await productDetailPage.clickViewCart();
 
     // Initialize page object for shopping cart interactions
@@ -127,9 +122,8 @@ test.describe("E-commerce Purchase Flow", () => {
     expect(cartQuantity, "Cart quantity should match selected quantity").toBe(
       randomQuantity
     );
-    console.log(`Step 5: Cart verified with ${cartItemCount} item(s) and quantity: ${cartQuantity}`);
+    console.log(`Step 9: Cart verified with ${cartItemCount} item(s) and quantity: ${cartQuantity}`);
 
-    // STEP 6: Proceed to checkout and handle authentication
     await cartPage.proceedToCheckout();
 
     // Verify that login/registration modal or page appears
@@ -148,9 +142,8 @@ test.describe("E-commerce Purchase Flow", () => {
 
     // Click to proceed with registration/login
     await cartPage.clickRegisterLogin();
-    console.log('Step 6: Proceeded to checkout and authentication screen');
+    console.log('Step 10: Proceeded to checkout and authentication screen');
 
-    // STEP 7: Handle user registration process
     // Initialize page object for login/registration page
     const loginPage = new LoginPage(page);
     await loginPage.waitForLoginPage();
@@ -164,9 +157,8 @@ test.describe("E-commerce Purchase Flow", () => {
 
     // Fill initial signup form with name and email
     await loginPage.fillSignupForm(userData.name, userData.email);
-    console.log(`Step 7: Initial signup form filled for user: ${userData.name}`);
+    console.log(`Step 11: Initial signup form filled for user: ${userData.name}`);
 
-    // STEP 8: Complete detailed user registration
     // Initialize page object for detailed signup form
     const signUpPage = new SignUpPage(page);
     await signUpPage.waitForSignUpPage();
@@ -181,9 +173,8 @@ test.describe("E-commerce Purchase Flow", () => {
 
     // Fill complete signup form with all required user information
     await signUpPage.fillSignupForm(userData);
-    console.log('Step 8: Complete signup form filled with user details');
+    console.log('Step 12: Complete signup form filled with user details');
 
-    // STEP 9: Verify account creation and continue
     // Initialize page object for account creation confirmation
     const accountCreatedPage = new AccountCreatedPage(page);
     await accountCreatedPage.waitForAccountCreatedPage();
@@ -196,16 +187,14 @@ test.describe("E-commerce Purchase Flow", () => {
     await accountCreatedPage.clickContinue();
     console.log('Step 9: Account created successfully and user is now logged in');
 
-    // STEP 10: Return to cart and proceed with checkout as authenticated user
     await homePage.navigateToCart();
     await cartPage.proceedToCheckout();
 
     // Initialize page object for checkout process
     const checkoutPage = new CheckoutPage(page);
     await checkoutPage.clickPlaceOrderButton();
-    console.log('Step 10: Proceeded to place order');
+    console.log('Step 13: Proceeded to place order');
 
-    // STEP 11: Complete payment process
     // Initialize page object for payment processing
     const paymentPage = new PaymentPage(page);
 
@@ -221,7 +210,7 @@ test.describe("E-commerce Purchase Flow", () => {
     // Verify payment was processed successfully
     const isPaymentSuccessful = await paymentPage.getSuccessfulMessage();
     expect(isPaymentSuccessful).toContain("Order Placed!");
-    console.log('Step 11: Payment completed successfully - Order placed!');
+    console.log('Step 14: Payment completed successfully - Order placed!');
     console.log('Complete purchase flow test completed successfully!');
   });
 });
